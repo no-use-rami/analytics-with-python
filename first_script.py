@@ -7,7 +7,7 @@ from operator import itemgetter
 
 print("Output #1: I'm excited to learn python.")
 
-# 두 수를 더한다. !
+# 두 수를 더한다.
 x = 4
 y = 5
 z = x + y
@@ -372,4 +372,6 @@ print("{}".format(list_to_tuple))
 
 tuple_copy_to_list = list(my_tuple[:])
 print("{}".format(tuple_copy))
+
+# 72p부터 이어서
 
