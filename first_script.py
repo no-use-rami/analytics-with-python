@@ -162,6 +162,7 @@ print("{0}-{1}-{2}".format(year,month,date))
 print("{0!s}".format(current_datetime))
 
 datetime.now().time
+# time은 이런 식으로 가져올 때 쓴다 
 
 
 # timedelta 함수를 이용하여 새로운 날짜 계산하기
