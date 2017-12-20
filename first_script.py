@@ -291,6 +291,7 @@ a_list.remove(3)
 print("Output #84: {}".format(a_list))
       # 3이 여러개 있는데 하나밖에 안 사라졌당.. 첫 번째 3이 사라진건가?
       # 나머지 3들을 동시에 치울 방법은?
+      # 다 없어질때까지 반복시키면 된다 (그래서 코딩을..)
       
 a_list.pop()
 a_list.pop()
@@ -299,7 +300,6 @@ print("Output #85: {}".format(a_list))
 # reverse() 함수로 리스트 반전하기
 # 해당 리스트 내에서(인플레이스) 변경이 일어나므로 (출력값만 변하는 게 아님)
 # 기존 리스트를 변경하지 않으려면 사본을 만들어 둬야 한다.
-        
 a_list.reverse()
 print("Output #86: {}".format(a_list))
 a_list.reverse()
