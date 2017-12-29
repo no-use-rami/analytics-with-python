@@ -162,8 +162,8 @@ print("{0}-{1}-{2}".format(year,month,date))
 print("{0!s}".format(current_datetime))
 
 datetime.now().time
-# time은 이런 식으로 가져올 때 쓴다 
-
+# time은 이런 식으로 이미 추출한 값에서 시간 부분을 가져올 때 쓴다 
+# 그런데 거의 쓸 일은 없을듯
 
 # timedelta 함수를 이용하여 새로운 날짜 계산하기
 one_day = timedelta(days=-1)
@@ -372,7 +372,198 @@ list_to_tuple = tuple(my_list)
 print("{}".format(list_to_tuple))
 
 tuple_copy_to_list = list(my_tuple[:])
-print("{}".format(tuple_copy))
+print("{}".format(tuple_copy_to_list))
 
-# 72p부터 이어서
+# 딕셔너리
+# 고유 식별자와 쌍을 이루는 정보로 구성된 리스트
+# (고객 번호 / 시리얼 넘버 / 거래 인덱스 등)
+# 리스트 = 연속적인 정수값, 암묵적으로 정렬
+# 딕셔너리 = 인덱스가 숫자가 아님, 기본 정렬 방법 없음
+# 정렬되어 있지 않아 값 추가 또는 검색 시 빠른 응답 가능 - 많은 데이터 처리할 때 유리
 
+# 중괄호를 이용해 딕셔너리 생성하기
+# 각 쌍의 키와 값 사이에 콜론 사용
+# len()함수는 딕셔너리에 있는 키-값 쌍의 수를 센다
+empty_dict = { }
+a_dict = {'one':1, 'two':2, 'three':3}
+print("Output #102: {}".format(a_dict))
+print("Output #103: a_dict has {!s} elements".format(len(a_dict)))
+      # a_dict 내 원소(쌍)의 갯수를 숫자로 나타낸다
+another_dict = {'x':'printer', 'y':5, 'z':['star','circle',9]}
+      # 딕셔너리 값은 일정한 형식이 아니어도 된다
+print("Output #104: {}".format(another_dict))
+print("Output #105: another_dict has {!s} elements".format(len(another_dict)))
+test_dict = {'1':'one', 'y':2, '4':[1,2,3], '5':[]}
+print(test_dict)
+      # 키-값 모두 다른 형식도 가능하다(키에 리스트는 안 됨)
+      # 빈 리스트도 값에 들어갈 수 있다
+
+# 키를 사용해 딕셔너리 내 특정 값 접근하기
+print("Output #106: {}".format(a_dict['two']))
+      # 딕셔너리명[대괄호] 안에 키 값을 넣는다
+print("{}".format(test_dict['4']))
+      # '4'와 4는 다르다
+      
+# copy() 함수를 이용해 딕셔너리 사본 만들기
+a_new_dict = a_dict.copy()
+      # copy() 이 괄호는 어떤 경우에 사용될까?
+print("Output #108: {}".format(a_new_dict))
+
+# keys(), values(), items()를 사용하여 키, 값, 키-값 쌍에 접근하기
+print("Output #109: {}".format(a_dict.keys()))
+      # 키만 출력됨
+print("Output #110: {}".format(a_dict.values()))
+      # 값만 출력됨
+print("Output #111: {}".format(a_dict.items()))
+      # (키,값) 튜플로 구성된 리스트가 출력됨
+print("Output #112: {}".format(test_dict.items()))
+      
+# 딕셔너리 내 모든 키와 값을 풀고 접근하는 데 for문 이용하기
+if 'y' in another_dict:
+    print("Output #114: y is a key in another_dict: {}."\
+.format(another_dict.keys()))
+      # another_dict 안에 y 키가 있다면 딕셔너리의 키 리스트를 출력한다.
+if 5 not in another_dict:
+    print("Output #115: 5 is not a key in another_dict: {}."\
+.format(another_dict.keys()))
+      # another_dict 안에 c 키가 없다면 딕셔너리의 키 리스트를 출력한다.
+      # 결과가 true가 아닐 경우 아무 일도 일어나지 않는다.(else가 없으니까)
+      # 값 기준으로는 찾을 수 없다. key를 기준으로 찾아야 함.
+print("Output #116: {!s}".format(a_dict.get('three')))
+      # a_dict에서 'three'키에 해당하는 값을 가져와 문자열로 출력한다
+print("Output #117: {!s}".format(a_dict.get('four')))
+      # 해당하는 키가 없을 때는 기본적으로 None을 출력한다. 
+print("Output #118: {!s}".format(a_dict.get('four','Not in dict')))
+      # 키가 존재하지 않을 때 출력할 내용을 인수로 넣을 수 있다.
+print("{}".format(test_dict.get(4, '없')))
+print("{}".format(test_dict.get('4', '없')))
+      # 이것도 값을 넣어서는 찾을 수 없다. 키가 괜히 키겠냐능
+
+# sorted() 함수를 이용해 딕셔너리 정렬하기
+# 원본이 수정되므로 사본 딕셔너리를 만들어보자
+print("Output #119: {}".format(a_dict))
+dict_copy = a_dict.copy()
+orderd_dict1 = sorted(dict_copy.items(), key=lambda item: item[0])
+      # 딕셔너리 내 각 튜플(키-값 쌍)의 첫 번째([0]) 원소(키)를 기준으로 정렬한다
+print("Output #120: (order by keys): {}".format(orderd_dict1))
+      # 기본적으로 오름차순 정렬이다
+orderd_dict2 = sorted(dict_copy.items(), key=lambda item: item[1])
+      # 딕셔너리 내 각 튜플의 두 번째([1]) 원소(값) 기준으로 정렬한다     
+print("Output #121: (order by values): {}".format(orderd_dict2))
+
+test_dict_copy = test_dict.copy()
+print("{}".format(sorted(test_dict_copy.items(), key=lambda item: item[0])))
+      # 값의 형식이 일정하지 않을 때는(int / str 혼재) 에러가 난다
+      
+orderd_dict3 = sorted(dict_copy.items(), key=lambda x: x[1], reverse=True)
+      # True의 T는 대문자다
+      # reverse는 내림차순으로 정렬한다
+      # 왜 여기서 갑자기 x가 튀어나온 것인지는 모르겠다
+print("Output #122: (order by values, descending): {}".format(orderd_dict3)) 
+print("Output #123: (order by values, ascending): {}".format\
+(sorted(dict_copy.items(), key=lambda x: x[1], reverse=False)))
+    
+# 제어 흐름
+# '만약 고객이 특정 양보다 더 많이 소비한다면 ㅇㅇ을 수행해라'
+# '만일 판매가 ㄱ 카테고리에서 발생했다면 a 코드를, ㄴ 카테고리에서 발생했다면 b 코드를 실행해라' 등
+# 프로그램에 유의미한 비즈니스 로직을 구성하는 것을 의미함
+# 파이썬에서는 if-else-else 문, for문, range함수 등이 이를 제공함
+# if-else는 내가 아는 그거 ㅇㅇ
+# for에서 사용할 수 있는 일련의 인덱스를 생성할 때 len(리스트)함수와 range() 함수를 이용하면 편함
+# while 문은 조건이 참이 될 때까지 body의 코드를 실행함(like 브레이크가 고장난 8톤 트럭...)
+
+# if-else문 : 조건 - 예외
+x = 5
+if x >= 4 or x == 9:
+    # or 연산자는 왼쪽이 True이면 오른쪽은 쿨스루, 왼쪽이 False일 때만 오른쪽을 평가
+    print("Output #124: {}".format(x))    
+else:
+    print("Output #124: x is not greater than 4")      
+
+# if-elif-else문 : 조건1 - 조건2 - 예외
+if x > 6:
+    print("Output #125: x is greater than six")
+elif x > 4 and x == 5:
+    # and 연산자는 왼쪽이 False이면 즉시 중단됨. 둘 다 True여야 진행
+    print("Output #125: {}".format(x))
+else:
+    print("Output #125: x is not greater than 4")
+          # 다음에 또 124, 125번 예제를 테스트한다면 x를 9로 바꿔보렴
+    
+# for 루프
+y = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+z = ['annie', 'Betty', 'Claire', 'Daphne', 'ellie', 'franchesca', 'Greta', 'holly', 'Isabel', 'Jenny']
+
+print("Output #126:")
+for month in y:
+    print("{!s}".format(month))
+
+print("Output #127: (index value: name in list)")
+for i in range(len(z)):
+    # z 리스트 원소 갯수의 범위에서 for문을 실행한다
+    print("{0!s}: {1:s}".format(i, z[i]))
+    # 0!s는 0번째 원소가 숫자여도 강제로 문자열로 출력하라는 것
+    # 1:s는 (강제여부x) 1번째 원소를 문자열로 출력함
+    # 인덱스 번호, 리스트[인덱스]에 해당하는 원소를 가져옴
+
+print("Output #128: (access elements in y with z's index values)")
+for j in range(len(z)):
+    if y[j].startswith('J'):
+        # y리스트의 [j번째] 원소가 'J'로 시작하는가?
+        print("{!s}".format(y[j]))       
+
+print("\n응용하기")
+for m in range(len(z)):
+    if y[m].startswith('M'):
+        print("{}".format(y[m]))
+    
+print("Output #129:")
+for key, value in another_dict.items():
+    # 오 for문에 두 가지 리스트를 가져올 수 있구나
+    print("{0!s}, {1}".format(key, value))
+    
+    
+# 간결한 for문 : list, set, dictionary 축약
+# 리스트 축약은 대괄호[], 집합 및 딕셔너리 축약은 중괄호{} 사용 (for in 문을 감싸는 괄호)
+    
+# 리스트 축약을 이용해 특정 행 고르기 
+my_data = [[1,2,3], [4,5,6], [7,8,9]]
+rows_to_keep = [row for row in my_data if row[2] > 5]
+      # my_data의 각 행(리스트 원소) 가운데, 행의 2번 인덱스 값(세 번째 값)이 5보다 큰 것만 가져옴
+print("Output #130: (list comprehension): {}".format(rows_to_keep))
+
+# 집합 축약을 이용해 튜플로 구성된 리스트에서 고유한 튜플만 선별해 집합을 추출하는 방법
+my_data = [(1,2,3), (4,5,6), (7,8,9)]
+set_of_tuples1 = {x for x in my_data}
+print("Output #131: (set comprehension): {}".format(set_of_tuples1))
+      # 출력할 때 정렬이 아무렇게나 뒤섞이는군
+set_of_tuples2 = set(my_data)
+      # 호라 간단데스
+print("Output #132: (set funtion): {}".format(set_of_tuples2))
+      # 결과는 집합 축약과 똑같지만 훨 간단하니 set함수를 쓰도록 하자
+      
+# '고유한' 튜플을 선별한다는 것
+test_tuple = [(1,2),(1,2,3),(1,2),(1,2,3,4)]
+print("{}".format(set(test_tuple)))
+      # (1,2) 튜플이 중복되므로 하나만 출력됨
+
+# 딕셔너리 축약을 이용해 특정 조건에 부합하는 키-값 쌍의 부분 집합 선별
+my_dictionary = {'customer1':7, 'customer2':9, 'customer3':11}
+my_results = {key : value for key, value in my_dictionary.items() if value > 10}
+      # my_dictionary의 아이템 중 값을 기준으로 10이 넘는 key와 value 쌍을 가져온다
+print("Output #133: (dictionary comprehnsion): {}".format(my_results)) 
+      
+# while 문은 보디가 실행되어야 할 횟수를 미리 알고 있을 때 유용하다.
+# 모르면 되도록 for문을 쓰도록
+print("Output #134:")
+x = 0
+while x < 11:
+    print("{!s}".format(x))
+    x += 1
+      # x가 11보다 작을 때 True
+      # while문이 True일 때 x값을 출력한다
+      # x에 1을 더한다
+      # while문이 False가 될 때까지 반복한다
+      
+# 오늘은 83p까지. 1.4.9함수부터 이어서-
+      
