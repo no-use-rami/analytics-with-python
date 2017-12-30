@@ -686,5 +686,5 @@ for input_file in glob.glob(os.path.join(inputPath, '*.txt')):
         # 터미널에서 python first_script.py "폴더 경로" 입력
         # 오예 파일이 수천개여도 다 읽어올 수 있다능
             
-# 텍스트 파일 쓰기
+# 95p 텍스트 파일 쓰기
 # 는 내년에 계속....
