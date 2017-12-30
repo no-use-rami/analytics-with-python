@@ -4,6 +4,9 @@ import re
 from datetime import date, time, datetime, timedelta
 # time 함수는 어떻게 쓰는 걸까
 from operator import itemgetter
+import sys
+import os
+import glob 
 
 print("Output #1: I'm excited to learn python.")
 
@@ -565,5 +568,123 @@ while x < 11:
       # x에 1을 더한다
       # while문이 False가 될 때까지 반복한다
       
-# 오늘은 83p까지. 1.4.9함수부터 이어서-
+# 함수를 만들 때는 맨 앞에 def라는 키워드로 시작해 함수명(): 으로 입력함
+# 함수의 보디가 되는 코드는 들여쓰기를 해야 함
+# 함수가 하나 이상의 값을 반환해야 한다면 return이라는 키워드를 입력함
+
+# 숫자 시퀀스의 평균 계산하기
+def getMean(numericValues):
+    return sum(numericValues)/len(numericValues) if len(numericValues) > 0 \
+    else float('nan')     
+    # numericValues라는 변수에 포함된 원소의 수가 1 이상일 때, 평균을 계산함
+    # False일 경우 'nan'을 실수 형식으로 반환함
+    # 일련의 동작을 getMean으로 이름 붙인 함수로 지정함
+
+my_list = [2,2,4,4,6,6,8,8]
+print("Output #135 (Mean): {!s}".format(getMean(my_list)))
       
+import numpy as np
+      # 모듈 이름이 길면 as로 줄일 수 있다
+print("Output #136 (mean): {!s}".format(np.mean(my_list)))
+      # numpy의 mean함수를 쓰면 초간단데스
+      
+# 예외.
+# 파이썬에 포함된 기본적인 예외들
+# IOError, IndexError, KeyError, NameError, SyntaxError, TypeError, UnicodeError, ValueError 둥
+# 자세한 내용은 생략한다
+      
+# 오류를 처리하는 방법 try-except
+# if문 대신 사용해 빈 리스트를 다룰 수 있다
+
+# try-except를 이용해 숫자 시퀀스의 평균 계산하기
+def getMean(numericValues):
+    return sum(numericValues)/len(numericValues)
+
+my_list2 = [1,2,205]
+
+# 짧은 버전
+try:
+    print("Output #137: {}".format(getMean(my_list2)))
+except ZeroDivisionError as zero:
+      # 특정 에러 유형에 대한 예외처리
+      # as ~ 는 해당 예외 내용을 담은 변수임
+    print("Output #137 (Error): {}".format(float('nan')))
+    print("Output #137 (Error): {}".format(zero))
+      # my_list2에 대해 getMean 함수를 실행한다 (참일 경우 평균값 출력)
+      # 비어 있는 my_list2가 ZeroDivisionError에 해당한다
+      # 예외 처리로 nan과 에러 메세지를 출력한다
+    
+#긴 버전
+try:
+    result = getMean(my_list2)
+      # getMean(my_list2)의 결과를 result 변수에 할당한다
+except ZeroDivisionError as detail:
+    print("Output #138 (Error): {}".format(float('nan')))
+    print("Output #138 (Error): {}".format(detail))
+else:
+    print("Output #138: {:.2f}".format(result))
+      # 예외에 해당하지 않을 경우 변수 result의 값을 출력한다
+finally:
+    print("Output #138 (finally): the finally block is executed every time")
+      # finally 블록은 예외이든 아니든 항상 실행된다
+
+## 텍스트 파일 읽기 - sys 모듈 필요
+## sys 모듈을 임포트하면 리스트 형식의 argv 변수를 사용할 수 있다
+## argv 변수는 command-line 인수들로 구성된 리스트를 파이썬 스크립트로 가져온다.
+## argv 리스트의 인덱스 argv[0]은 스크립트 이름, argv[1]은 커맨드 라인으로 전달된 첫 번째 인수이다.(읽을 파일명)
+
+# 하나의 텍스트 파일 읽기
+'''
+print("Output #139: ")
+input_file = sys.argv[1] 
+      # sys.argv 함수로 읽을 파일명을 불러와 input_file 변수에 할당함
+filereader = open(input_file, 'r') 
+      # 파일 객체를 생성하기 위해 open함수로 input_file 내용의 각 행을 저장함
+      # 'r'은 읽기 모드로 연다는 뜻
+for row in filereader:
+    print(row.strip()) # strip으로 각 행의 앞과 끝의 공백, 탭, 개행문자 등을 제거함
+filereader.close # close 함수로 fileleader 객체를 닫는다
+'''
+
+## 터미널에서 python first_script.py file_to_read.txt 로 명령을 실행한다
+## 텍스트 파일 경로가 다를 때는 python first_script.py (전체 경로)file_to_read.txt 입력
+
+## 139번의 filereader 생성 코드는 구식이래.....
+## close 함수로 닫거나 스크립트가 종료될 때까지 파일 객체가 열려있어 오류를 일으킬 수 있음
+## 파이썬 2.5 이후에서는 with문으로 파일을 생성할 수 있고, with문이 끝날 때 자동으로 파일 객체를 닫는다
+
+# with문을 활용한 파일 읽기
+'''
+input_file = sys.argv[1]
+print("Output #140: ")
+with open(input_file, 'r', newline='') as filereader:
+    for row in filereader:
+        print("{}".format(row.strip()))
+'''
+      # open 함수로 input_file을 읽기 전용으로 열고, newline 인수를 공백으로 지정한다
+      # 가져온 행을 filereader 객체에 할당한다.
+      # 마지막 행까지 strip()을 적용해 출력한다.
+
+## glob 모듈은 적은 수의 코드로 다수의 입력 파일을 읽고 처리할 수 있다
+## 파일이 아니라 폴더에 초점을 맞춰, 특정 패턴과 일치하는 모든 경로명을 찾는다.
+## 여러 파일에서 전체 또는 부분집합의 통계치를 구할 때 유용함
+## os 모듈은 유용한 경로 함수를 이용할 수 있다.
+## os.path.join 함수는 하나 이상의 경로를 구성하는 요소들을 서로 합친다
+## os와 glob을 결합하면 특정 폴더 내, 특정 패턴의 파일을 모두 찾을 수 있다
+      
+# 다수의 파일 읽기
+print("Output #141:")
+inputPath = sys.argv[1]
+for input_file in glob.glob(os.path.join(inputPath, '*.txt')):
+        # glob.glob 함수와 os.path.join 함수 함께 활용
+        # 커맨드 라인에서 입력받은 변수 inputPath에 해당하는 폴더 내 '*.txt'형식의 파일을 찾는다
+        # 찾은 파일들을 input_file로 할당한다
+    with open(input_file, 'r', newline='') as filereader:
+        for row in filereader:
+            print("{}".format(row.strip()))
+            
+        # 터미널에서 python first_script.py "폴더 경로" 입력
+        # 오예 파일이 수천개여도 다 읽어올 수 있다능
+            
+# 텍스트 파일 쓰기
+# 는 내년에 계속....
