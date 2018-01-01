@@ -673,6 +673,7 @@ with open(input_file, 'r', newline='') as filereader:
 ## os와 glob을 결합하면 특정 폴더 내, 특정 패턴의 파일을 모두 찾을 수 있다
       
 # 다수의 파일 읽기
+'''
 print("Output #141:")
 inputPath = sys.argv[1]
 for input_file in glob.glob(os.path.join(inputPath, '*.txt')):
@@ -682,9 +683,50 @@ for input_file in glob.glob(os.path.join(inputPath, '*.txt')):
     with open(input_file, 'r', newline='') as filereader:
         for row in filereader:
             print("{}".format(row.strip()))
-            
+'''            
         # 터미널에서 python first_script.py "폴더 경로" 입력
         # 오예 파일이 수천개여도 다 읽어올 수 있다능
             
-# 95p 텍스트 파일 쓰기
-# 는 내년에 계속....
+# 하나의 텍스트 파일 작성하기
+'''
+my_letters = ['a','b','c','d','e','f','g','h','i','j']
+max_index = len(my_letters)
+output_file = sys.argv[1]
+filewriter = open(output_file, 'w')
+      # 'w'는 쓰기 모드로 output_file을 연다
+for index_value in range(len(my_letters)): # 여기서는 max_index를 쓰면 안 되나?
+    if index_value < (max_index - 1):
+        filewriter.write(my_letters[index_value]+'\t') # 각 문자들 사이에 탭을 넣는다
+    else:
+        filewriter.write(my_letters[index_value]+'\n') # 마지막에 개행문자를 넣는다
+filewriter.close()
+print("Output #142: Output written to file")
+'''      
+      # python first_script.py "저장할 경로/파일명.txt"로 실행한다
+
+# str 함수를 이용해 각 값을 문자열로 변환하기
+# 'a'(append)모드로 기존 파일 마지막에 값을 추가할 수도 있다
+      
+# CSV파일 작성하기
+my_numbers =[0,1,2,3,4,5,6,7,8,9]
+max_index = len(my_numbers)
+output_file = sys.argv[1]
+filewriter = open(output_file, 'a') # 'a' 모드는 기존 파일에 내용을 추가한다
+for index_value in range(len(my_numbers)):
+    if index_value < (max_index - 1):
+        filewriter.write(str(my_numbers[index_value])+',') # str로 변환해야 작동한다
+    else:
+        filewriter.write(str(my_numbers[index_value])+'\n')
+filewriter.close()
+print("Output #143: Output appended to file")
+      
+      # python first_script.py "저장할 경로/내용을 추가할 파일명.txt"로 실행한다
+      # 파일명을 write_to_file.csv로 지정하면 새로운 csv 파일로 출력 가능하다
+
+# print문은 프로그램 디버깅에도 도움이 된다
+# 코드가 잘 작동했을 때 마지막의 print문으로 값이 나타나는지 확인한다
+# 확인이 필요한 구간마다 print문을 적절히 활용하고, 확인 후에는 주석처리하면서 쓰면 됨
+      
+# 1장 끝!!
+
+      
