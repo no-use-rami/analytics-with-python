@@ -1,20 +1,8 @@
 
 .DS_Store
-*.checkpoint.ipynb
+*checkpoint.ipynb
+*checkpoint
 *.csv
 *.xls
 *.xlsx
-.ipynb_checkpoints/2장-checkpoint (유니코드 인코딩 충돌).ipynb
-.ipynb_checkpoints/first_script-checkpoint.ipynb
-3장/.ipynb_checkpoints/3.4~3.6-checkpoint.ipynb
-3장/.ipynb_checkpoints/3장-checkpoint.ipynb
-3장/.ipynb_checkpoints/2excel_parsing_and_write-checkpoint.ipynb
-3장/.ipynb_checkpoints/1excel_introspect_workbook-checkpoint.ipynb
-3장/.ipynb_checkpoints/4excel_value_meets_condition-checkpoint.ipynb
-2장/.ipynb_checkpoints/2장-checkpoint.ipynb
 *.txt
-*.xls
-3장/11pandas_output.xls
-3장/11pandas_output.xls
-3장/11pandas_output.xls
-*.xls
